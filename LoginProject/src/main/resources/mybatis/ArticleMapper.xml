@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.loginproject.mapper.ArticleMapper">
+    <!--IAccountDao的查询所有-->
+    <select id="getArticleListByName" parameterType="java.lang.String" resultType="com.example.loginproject.entity.Article">
+        select * from article where a_name like CONCAT('%', #{a_name}, '%')
+    </select>
+    <select id="getArticleListByWriter" parameterType="java.lang.String" resultType="com.example.loginproject.entity.Article">
+        select * from article where a_writer like CONCAT('%', #{a_writer}, '%')
+    </select>
+    <select id="getArticleListByResource" parameterType="java.lang.String" resultType="com.example.loginproject.entity.Article">
+        select * from article where a_resource like CONCAT('%', #{a_resource}, '%')
+    </select>
+    <delete id="deleteArticle" parameterType="java.lang.Integer">
+        delete
+        from article
+        where a_id = #{id}
+    </delete>
+    <insert id="addArticle" parameterType="com.example.loginproject.entity.Article">
+        insert into article (a_id, a_name, a_writer, a_date, a_resource,a_type,a_abstract,a_keyword)
+        values (#{a_id}, #{a_name}, #{a_writer}, #{a_date}, #{a_resource},#{a_type},#{a_abstract},#{a_keyword})
+    </insert>
+    <select id="getArticleById" resultType="com.example.loginproject.entity.Article">
+        select * from article where a_id=#{id}
+    </select>
+    <update id="updateArticle" parameterType="com.example.loginproject.entity.Article">
+        update article
+        set a_date      = #{a_date},
+            a_name   = #{a_name},
+            a_writer    = #{a_writer},
+            a_resource = #{a_resource},
+            a_type = #{a_type},
+            a_abstract = #{a_abstract},
+            a_keyword = #{a_keyword}
+        where a_id = #{a_id}
+    </update>
+<!--传入多个参数-->
+<!--    1. 不需要parameterType参数-->
+<!--    2. mapper文件用注解@Param注解参数名-->
+<!--    3. xml文件要使用2中的参数名-->
+
+</mapper>

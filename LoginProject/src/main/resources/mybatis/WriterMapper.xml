@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.loginproject.mapper.WriterMapper">
+    <!--IAccountDao的查询所有-->
+    <select id="getWriterList" parameterType="java.lang.String" resultType="com.example.loginproject.entity.Writer">
+        select * from writer where w_name like CONCAT('%', #{w_name}, '%')
+    </select>
+    <delete id="deleteWriter" parameterType="java.lang.Integer">
+        delete
+        from writer
+        where w_id = #{id}
+    </delete>
+    <insert id="addWriter" parameterType="com.example.loginproject.entity.Writer">
+        insert into writer (w_id, w_date, w_name, w_provice, w_city,w_address,w_code)
+        values (#{w_id}, #{w_date}, #{w_name}, #{w_provice}, #{w_city},#{w_address},#{w_code})
+    </insert>
+    <select id="getWriterById" resultType="com.example.loginproject.entity.Writer">
+        select * from writer where writer.w_id=#{id}
+    </select>
+    <update id="updateWriter" parameterType="com.example.loginproject.entity.Writer">
+        update writer
+        set w_date      = #{w_date},
+            w_name   = #{w_name},
+            w_provice    = #{w_provice},
+            w_city = #{w_city},
+            w_address = #{w_address},
+            w_code = #{w_code}
+        where w_id = #{w_id}
+    </update>
+<!--传入多个参数-->
+<!--    1. 不需要parameterType参数-->
+<!--    2. mapper文件用注解@Param注解参数名-->
+<!--    3. xml文件要使用2中的参数名-->
+
+</mapper>

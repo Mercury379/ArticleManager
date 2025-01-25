@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.loginproject.mapper.UserMapper">
+    <!--IAccountDao的查询所有-->
+    <select id="getUserList" resultType="com.example.loginproject.entity.User">
+    select * from user
+</select>
+    <select id="loginUser" resultType="com.example.loginproject.entity.User">
+        select * from user where user.name=#{name} and user.password=#{password}
+    </select>
+    <insert id="addUser" parameterType="com.example.loginproject.entity.User">
+        insert into user (name, password, email, birthday, money,portrait)
+        values (#{name}, #{password}, #{email}, #{birthday}, 0, #{portrait})
+    </insert>
+    <update id="updateUser" parameterType="com.example.loginproject.entity.User">
+        update user
+        set password   = #{password},
+            email      = #{email},
+            birthday   = #{birthday},
+            money    = #{money},
+            portrait = #{portrait}
+        where name = #{name}
+    </update>
+    <select id="getUserInfo" resultType="com.example.loginproject.entity.User">
+        select * from user where user.name=#{name}
+    </select>
+    <update id="addMoney">
+        update user
+        set money = #{money}
+        where name = #{name}
+    </update>
+<!--传入多个参数-->
+<!--    1. 不需要parameterType参数-->
+<!--    2. mapper文件用注解@Param注解参数名-->
+<!--    3. xml文件要使用2中的参数名-->
+</mapper>
